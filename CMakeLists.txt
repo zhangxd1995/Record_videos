@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.10)
+project(cam_distance)
+
+set(CMAKE_CXX_STANDARD 17)
+#set(SOURCES )
+
+find_package(realsense2 REQUIRED PATHS "/usr/lib/x86_64-linux-gnu")
+find_package(OpenCV 3 REQUIRED )
+find_package(Python3 COMPONENTS Interpreter Development NumPy REQUIRED)
+find_package(PythonLibs 3.0 REQUIRED)
+find_package(apriltag REQUIRED)
+find_package(GFlags)
+find_package(Glog)
+find_package(Threads REQUIRED)
+find_package(Eigen3)
+find_dependency(Boost REQUIRED COMPONENTS filesystem)
+
+find_library(apriltag_LIBRARY1 NAMES libapriltag.so PATHS "/home/zxd/apriltag/apriltag-3.2.0/build/lib" )
+find_library(apriltag_LIBRARY2 NAMES libapriltag.so.3 PATHS "/home/zxd/apriltag/apriltag-3.2.0/build/lib" )
+find_library(apriltag_LIBRARY3 NAMES libapriltag.so.3.2.0 PATHS "/home/zxd/apriltag/apriltag-3.2.0/build/lib" )
+set(apriltag_LIBS ${apriltag_LIBRARY1} ${apriltag_LIBRARY2} ${apriltag_LIBRARY3})
+
+include_directories( ${OpenCV_INCLUDE_DIRS})
+add_executable(cam_distance include/TagDetection.hpp include/StoreImage.hpp include/Camera.hpp main.cpp include/Buffer.hpp src/cal_distance.cpp)
+target_link_libraries(cam_distance stdc++fs ${realsense2_LIBRARY} ${OpenCV_LIBS} ${PYTHON_LIBRARIES} ${apriltag_LIBS} ${Boost_LIBRARIES} Threads::Threads Python3::NumPy)

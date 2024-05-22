@@ -1,0 +1,12 @@
+# General settings
+width = 848
+height = 480
+fps = 30
+
+# Output settings
+save_dir = /home/zxd/recorded_images/
+actor = subject_test/
+task = take_2/
+date = 2023_02_09
+type_rgb = .png
+type_depth = .tiff
